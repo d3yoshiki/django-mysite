@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}政策アンケート{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: orange;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #eee;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+
+    </style>
+    </style>
+</head>
+<body>
+    <header>
+        <h1>政策アンケートサイト</h1>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- ページ固有の内容はここに表示 -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        © 2025 政策アンケート
+    </footer>
+    <a href="{% url 'admin:index' %}" class="hidden-admin">管理画面</a>
+</body>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}質問一覧{% endblock %}
+
+{% block content %}
+<h2>質問一覧</h2>
+{% if questions %}
+    <ul>
+    {% for question in questions %}
+        <li>
+            <strong>{{ question.title }}</strong><br>
+            {{ question.description|linebreaks }}<br>
+            <small>作成日: {{ question.pub_date }}</small>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>まだ質問は作成されていません。</p>
+{% endif %}
+<a href="{% url 'create_question' %}">新しい質問を作成</a>
+{% endblock %}

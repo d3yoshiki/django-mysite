@@ -1,0 +1,75 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}新しい質問を作成{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    <div class="card">
+        <h2>新しい質問を作成</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">保存</button>
+        </form>
+        <a href="{% url 'question_list' %}">一覧に戻る</a>
+    </div>
+</div>
+
+<style>
+/* カードを中央に配置 */
+.card-container {
+    display: flex;
+    justify-content: center; /* 横中央 */
+    align-items: center;     /* 縦中央 */
+    min-height: 70vh;        /* 画面中央に近づける */
+}
+
+/* カード風デザイン */
+.card {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s; /* アニメーション追加 */
+}
+
+/* マウスオーバーで浮く */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 27px rgba(0,0,0,0.3);
+}
+
+/* フォーム内の入力フィールド */
+.card input[type="text"],
+.card textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+/* ボタン */
+.card button {
+    display: block;          /* 中央配置に効く */
+    margin: 0 auto;          /* 横中央 */
+    width: 100%;             /* 横幅いっぱい */
+    background-color: orange;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.card button:hover {
+    background-color: darkorange;
+    transform: translateY(-2px); /* ボタンも軽く浮く */
+}
+</style>
+{% endblock %}
