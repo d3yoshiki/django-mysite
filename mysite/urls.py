@@ -25,6 +25,7 @@ urlpatterns = [
    path('polls/', include('polls.urls')),  # pollsアプリのURLを追加
     path('accounts/', include('social_django.urls', namespace='social')),
     path('login/', views.login_view, name='login'),
+    path('after_login/', views.after_login, name='after_login'),  
 
 
 ]

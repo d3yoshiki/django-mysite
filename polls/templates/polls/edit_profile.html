@@ -1,0 +1,112 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+{% block title %}プロフィール編集{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    <div class="card">
+        <h2>プロフィール編集</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-field">
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }} <span class="required">*</span>
+                    </label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">保存</button>
+        </form>
+
+        <a href="{% url 'home' %}">ホームに戻る</a>
+    </div>
+</div>
+
+<style>
+/* カードを中央に配置 */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+/* カード風デザイン */
+.card {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 27px rgba(0,0,0,0.3);
+}
+
+/* フォーム内のフィールド */
+.form-field {
+    margin-bottom: 15px;
+}
+
+.form-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.required {
+    color: red;
+}
+
+.card input[type="text"],
+.card textarea,
+.card select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+/* エラーメッセージ */
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* ボタン */
+.card button {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    background-color: orange;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.card button:hover {
+    background-color: darkorange;
+    transform: translateY(-2px);
+}
+</style>
+{% endblock %}
