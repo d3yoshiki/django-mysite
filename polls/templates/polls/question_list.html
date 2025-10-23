@@ -1,21 +1,95 @@
 {% extends 'polls/base.html' %}
-
+{% load static %}
 {% block title %}質問一覧{% endblock %}
 
 {% block content %}
-<h2>質問一覧</h2>
+<h2 class="page-title">質問一覧</h2>
+
 {% if questions %}
-    <ul>
+  <div class="card-container">
     {% for question in questions %}
-        <li>
-            <strong>{{ question.title }}</strong><br>
-            {{ question.description|linebreaks }}<br>
-            <small>作成日: {{ question.pub_date }}</small>
-        </li>
+      <div class="question-card">
+        <h3 class="question-title">{{ question.title }}</h3>
+        <p class="question-desc">{{ question.description|linebreaks }}</p>
+        <p class="question-date">📅 作成日: {{ question.pub_date }}</p>
+
+        <!-- 🐦 丸型Xアイコン共有ボタン -->
+       <a href="https://twitter.com/intent/tweet?text={{ question.title }}&url={{ request.build_absolute_uri }}"
+   target="_blank"
+   class="share-btn">
+  <img src="{% static 'polls/images/logo-black.png' %}"
+       alt="X"
+       class="x-icon" width="30" height="30">
+</a>
+
+      </div>
     {% endfor %}
-    </ul>
+  </div>
 {% else %}
-    <p>まだ質問は作成されていません。</p>
+  <p class="no-question">まだ質問は作成されていません。</p>
 {% endif %}
-<a href="{% url 'create_question' %}">新しい質問を作成</a>
+
+<a href="{% url 'create_question' %}" class="create-btn">＋ 新しい質問を作成</a>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .question-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 16px 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+
+  .question-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .question-title {
+    color: #007bff;
+    margin-bottom: 8px;
+    font-size: 1.2em;
+  }
+
+  .question-desc {
+    color: #555;
+    margin-bottom: 12px;
+  }
+
+  .question-date {
+    font-size: 0.9em;
+    color: #888;
+  }
+
+  /* 🐦 X共有アイコン */
+ .share-btn {
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.x-icon {
+  width: 20px;       /* 小さくする */
+  height: 20px;      /* 小さくする */
+  border-radius: 50%; /* 丸くする */
+  object-fit: cover;  /* はみ出さないように切り抜く */
+  border: 1px solid #ccc; /* 薄い枠（任意） */
+  transition: transform 0.2s;
+}
+
+.x-icon:hover {
+  transform: scale(1.1);
+}
+
+</style>
 {% endblock %}

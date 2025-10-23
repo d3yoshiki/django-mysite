@@ -16,3 +16,11 @@ def create_question(request):
     else:
         form = QuestionForm()
     return render(request, 'polls/create_question.html', {'form': form})
+
+
+
+
+
+def login_view(request):
+    return render(request, 'polls/login.html')
+

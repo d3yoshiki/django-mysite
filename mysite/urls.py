@@ -23,5 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
         path('', views.question_list, name='home'),  # ルートURLに Question一覧を表示
    path('polls/', include('polls.urls')),  # pollsアプリのURLを追加
+    path('accounts/', include('social_django.urls', namespace='social')),
+    path('login/', views.login_view, name='login'),
+
 
 ]

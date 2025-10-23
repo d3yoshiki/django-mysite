@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>ログイン</title>
+  <link rel="stylesheet" href="{% static 'polls/css/style.css' %}">
+</head>
+<body>
+  <h2>ログインページ</h2>
+
+  <!-- Google ログインボタン -->
+  <a href="{% url 'social:begin' 'google-oauth2' %}" class="google-btn">
+    <img src="{% static 'polls/images/google-icon.png' %}" alt="Google" width="24" height="24">
+    Googleでログイン
+  </a>
+
+</body>
+</html>
