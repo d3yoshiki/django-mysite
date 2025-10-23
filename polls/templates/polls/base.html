@@ -13,6 +13,18 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative; /* ログインリンク配置用 */
+        }
+        header nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
         }
         main {
             padding: 20px;
@@ -23,14 +35,23 @@
             text-align: center;
             font-size: 0.9em;
         }
-
-
-    </style>
     </style>
 </head>
 <body>
     <header>
         <h1>政策アンケートサイト</h1>
+
+        <nav>
+            {% if user.is_authenticated %}
+                <span>{{ user.userprofile.nickname|default:user.username }} さん</span>
+                <a href="{% url 'logout' %}">ログアウト</a>
+                <a href="{% url 'mypage' %}">マイページ</a>
+            {% else %}
+                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                    Googleでログイン
+                </a>
+            {% endif %}
+        </nav>
     </header>
 
     <main>
@@ -42,7 +63,7 @@
     <footer>
         © 2025 政策アンケート
     </footer>
+
     <a href="{% url 'admin:index' %}" class="hidden-admin">管理画面</a>
-</body>
 </body>
 </html>

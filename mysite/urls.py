@@ -26,6 +26,9 @@ urlpatterns = [
     path('accounts/', include('social_django.urls', namespace='social')),
     path('login/', views.login_view, name='login'),
     path('after_login/', views.after_login, name='after_login'),  
+        path('after_login/', views.mypage, name='after_login'),  # マイページ
+        path('logout/', views.logout_view, name='logout'),
+
 
 
 ]

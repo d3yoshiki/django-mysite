@@ -26,7 +26,11 @@ def create_question(request):
 def login_view(request):
     return render(request, 'polls/login.html')
 
+from django.contrib.auth import logout
 
+def logout_view(request):
+    logout(request)
+    return redirect('home')  # ログアウト後にホームへリダイレクト
 
 
 @login_required
@@ -55,3 +59,9 @@ def after_login(request):
     if not profile.nickname:
         return redirect('edit_profile')
     return redirect('home')
+
+@login_required
+def mypage(request):
+    # ログインユーザーのプロフィールを取得
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    return render(request, 'polls/mypage.html', {'profile': profile})

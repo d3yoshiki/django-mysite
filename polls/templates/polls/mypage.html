@@ -1,0 +1,51 @@
+{% extends 'polls/base.html' %}
+{% load static %}
+
+{% block title %}マイページ{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    <div class="card">
+        <h2>{{ profile.nickname }}さんのマイページ</h2>
+
+        <p><strong>ユーザーネーム:</strong> {{ profile.nickname }}</p>
+        <p><strong>プロフィールコメント:</strong> {{ profile.profile_comment }}</p>
+        <p><strong>性別:</strong> {{ profile.gender }}</p>
+        <p><strong>誕生年:</strong> {{ profile.birth_year }}</p>
+        <p><strong>支持政党:</strong> {{ profile.political_party }}</p>
+        <p><strong>登録日:</strong> {{ profile.created_at|date:"Y-m-d" }}</p>
+
+        <a href="{% url 'edit_profile' %}" class="btn-edit">プロフィール編集</a>
+        <a href="{% url 'home' %}">ホームに戻る</a>
+    </div>
+</div>
+
+<style>
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+.card {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 100%;
+}
+.btn-edit {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: orange;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.btn-edit:hover {
+    background-color: darkorange;
+}
+</style>
+{% endblock %}
