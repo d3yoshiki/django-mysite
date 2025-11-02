@@ -9,7 +9,20 @@
   <div class="card-container">
     {% for question in questions %}
       <div class="question-card">
-        <h3 class="question-title">{{ question.title }}</h3>
+        <h3 class="question-title">
+<a href="{% url 'question_detail' question.id %}">
+        {{ question.title }}
+      </a>        </h3>
+
+{% if question.user_profile %}
+  
+            
+            
+            
+            作成者: {{ question.user_profile.nickname }}
+          </p>
+        {% endif %}
+        
         <p class="question-desc">{{ question.description|linebreaks }}</p>
         <p class="question-date">📅 作成日: {{ question.pub_date }}</p>
 
@@ -34,6 +47,8 @@
 
 {% block extra_css %}
 <style>
+
+
   .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -90,6 +105,11 @@
 .x-icon:hover {
   transform: scale(1.1);
 }
+
+
+
+
+
 
 </style>
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .forms import QuestionForm,UserProfileForm
 from .models import Question,UserProfile
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,12 @@ from django.contrib.auth.decorators import login_required
 def question_list(request):
     questions = Question.objects.order_by('-pub_date')
     return render(request, 'polls/question_list.html', {'questions': questions})
+
+
+# 質問詳細
+def question_detail(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    return render(request, 'polls/question_detail.html', {'question': question})
 
 
 def create_question(request):
@@ -39,7 +45,7 @@ def edit_profile(request):
     profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=profile)
+        form = UserProfileForm(request.POST, request.FILES,instance=profile)
         if form.is_valid():
             form.save()
             return redirect('home')  # 保存後はホームへ

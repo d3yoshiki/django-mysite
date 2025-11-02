@@ -22,3 +22,7 @@ media/
 
 #google Oauth ID pass
 .env
+
+
+#画像フォルダ
+/media/

@@ -9,5 +9,6 @@ urlpatterns = [
         path('after_login/', views.after_login, name='after_login'),
         path('after_login/', views.mypage, name='after_login'),  # マイページ
     path('mypage/', views.mypage, name='mypage'),  # 新しいマイページURL
+    path('question/<int:pk>/', views.question_detail, name='question_detail'),
 
 ]

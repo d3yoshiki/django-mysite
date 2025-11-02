@@ -8,15 +8,51 @@
     <div class="card">
         <h2>{{ profile.nickname }}さんのマイページ</h2>
 
+
+        <!-- 👇 プロフィール画像を表示 -->
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="プロフィール画像" class="profile-image">
+        {% else %}
+            <!-- 画像がない場合のデフォルト画像 -->
+            <img src="{% static 'polls/images/default_profile.png' %}" alt="デフォルト画像" class="profile-image">
+        {% endif %}
+
+
         <p><strong>ユーザーネーム:</strong> {{ profile.nickname }}</p>
         <p><strong>プロフィールコメント:</strong> {{ profile.profile_comment }}</p>
         <p><strong>性別:</strong> {{ profile.gender }}</p>
         <p><strong>誕生年:</strong> {{ profile.birth_year }}</p>
         <p><strong>支持政党:</strong> {{ profile.political_party }}</p>
-        <p><strong>登録日:</strong> {{ profile.created_at|date:"Y-m-d" }}</p>
+        <p><strong>登録日:</strong> {{ profile.registered_at|date:"Y-m-d" }}</p>
+
+        <hr>
+
+        <h3>投稿した質問一覧</h3>
+        {% if profile.questions.all %}
+            <ul>
+                {% for question in profile.questions.all %}
+                    <li>
+                        <a href="{% url 'question_detail' question.id %}">
+                            {{ question.title }}
+                        </a>
+                        （{{ question.pub_date|date:"Y-m-d" }}）
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>まだ質問を投稿していません。</p>
+        {% endif %}
+
+        <hr>
+
+
 
         <a href="{% url 'edit_profile' %}" class="btn-edit">プロフィール編集</a>
         <a href="{% url 'home' %}">ホームに戻る</a>
+
+
+
+        
     </div>
 </div>
 
@@ -34,7 +70,21 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     max-width: 500px;
     width: 100%;
+    text-align: center; /* 画像中央寄せ */
+
 }
+
+
+/* 🖼 プロフィール画像を丸く表示 */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    margin-bottom: 15px;
+}
+
 .btn-edit {
     display: inline-block;
     margin-top: 15px;

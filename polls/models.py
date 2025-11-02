@@ -8,7 +8,13 @@ class Question(models.Model):
     title = models.CharField(max_length=200)  # 質問のタイトル（例：「消費税を引き下げるべきか？」）
     description = models.TextField(blank=True)  # 詳しい説明や背景
     pub_date = models.DateTimeField(auto_now_add=True)  # 投稿日
-
+    user_profile = models.ForeignKey(
+        'UserProfile',  # モデル名を文字列で参照（後方参照）
+        on_delete=models.CASCADE,
+        related_name='questions',  # 逆参照で user_profile.questions.all() が使えるようになる
+        null=True,  # 既存データを壊さないようにするため最初は許可
+        blank=True,
+    )
     def __str__(self):
         return self.title
 
@@ -49,6 +55,12 @@ class UserProfile(models.Model):
     birth_year = models.IntegerField("生まれた年", null=True, blank=True)
     registered_at = models.DateTimeField("登録日", default=timezone.now)
     political_party = models.CharField("支持政党", max_length=20, choices=PARTY_CHOICES, blank=True)
+    profile_image = models.ImageField(
+        "プロフィール画像",
+        upload_to='profile_images/',  # 保存先 (MEDIA_ROOT/profile_images/)
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return self.nickname or self.user.username

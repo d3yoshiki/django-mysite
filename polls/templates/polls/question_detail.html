@@ -1,0 +1,18 @@
+{% extends 'polls/base.html' %}
+{% block title %}{{ question.title }}{% endblock %}
+{% block content %}
+<h2>{{ question.title }}</h2>
+<p>{{ question.description }}</p>
+<p>投稿日: {{ question.pub_date|date:"Y-m-d H:i" }}</p>
+
+<h3>選択肢</h3>
+<ul>
+  {% for choice in question.choices.all %}
+    <li>{{ choice.text }}（{{ choice.votes }}票）</li>
+  {% empty %}
+    <li>選択肢がまだありません。</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'question_list' %}">質問一覧に戻る</a>
+{% endblock %}
